@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>වැඩසටහන් දින දර්ශනය Events Calendar</title>
+		<meta property="og:title" content="Nirapekshathwaye Maga | &#3505;&#3538;&#3515;&#3508;&#3546;&#3482;&#3530;&#3522;&#3501;&#3530;&#3520;&#3514;&#3546; &#3512;&#3484;" />
+		<meta property="og:description" content="තථාගතයන් වහන්සේගේ එකම ඉගැන්වීම වන, ආස්වාදය ආදීනවය නිස්සරණය තතු සේ දැන, කාම භූමියේ සිට අරිහත් ඵලය දක්වා වැඩිය යුතු එකම මාර්ගය වන ලෝකෝත්තර අරි අටගි මග පිළිබඳව කෙරෙන ගැඹුරු සාකච්ඡාවකි." />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+							<!-- Logo -->
+							<a href="index.html">
+								<span ><img src="images/logo.png" alt="" /></span><span class="title"></span>
+							</a>
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<h2>Menu</h2>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="start.html">ඇරඹුම Start</a></li>
+						<li><a href="locations.html">සම්බන්ද වෙන්න Connect</a></li>
+						<li><a href="events.html">වැඩසටහන් දින දර්ශනය Events Calendar</a></li>
+						<li><a href="truth.html">පෙර නොඇසූවිරු දහම Universal Truths Unheard of</a></li>
+						<li><a href="qna.html">දහම් ගැටලුවක් Q&A</a></li>
+						<li><a href="donations.html">පුණ්‍යානුමෝදනාව Donations</a></li>
+					</ul>
+				</nav>
+
+
+							<!-- Main -->
+							<div id="main">
+								<div class="inner">
+									<header>
+										<h1>වැඩසටහන් දින දර්ශනය Events Calendar</h1>
+										<p><a target="_blank"  href="https://support.google.com/calendar/answer/37100?hl=en&ref_topic=10510447">Add calendar to view in your local timezone</a></p>
+									</header>
+									<div class="responsive-iframe-container big-container">
+										<iframe id="calendar-container" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+									</div>
+								</div>
+							</div>
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+				<script type="text/javascript">
+					const calurl = "https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&showTitle=1&showNav=1&showDate=1&showPrint=1&showTabs=1&showCalendars=1&showTz=1&title=%E0%B6%B1%E0%B7%92%E0%B6%BB%E0%B6%B4%E0%B7%9A%E0%B6%9A%E0%B7%8A%E0%B7%82%E0%B6%AD%E0%B7%8A%E0%B7%80%E0%B6%BA%E0%B7%9A%20%E0%B6%B8%E0%B6%9C%E0%B7%80%E0%B7%90%E0%B6%A9%E0%B7%83%E0%B6%A7%E0%B7%84%E0%B6%B1%E0%B7%8A%20%E0%B6%AF%E0%B7%92%E0%B6%B1%20%E0%B6%AF%E0%B6%BB%E0%B7%8A%E0%B7%81%E0%B6%B1%E0%B6%BA%20%3A%20Nirapekshathwaye%20Maga%20Events%20Calendar&src=bmlyYXBla3NoYXRod2F5ZW1hZ2FhcHBAZ21haWwuY29t&color=%23039BE5";
+					var cal = document.getElementById('calendar-container');
+					var timezone = "Asia%2FColombo";
+					try {
+						timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+					} catch (error) {
+						console.log("Failed to detect browser timezone"+error);	
+					}
+					cal.src = calurl + `&ctz=${timezone}`;	
+			</script>
+	</body>
+</html>
