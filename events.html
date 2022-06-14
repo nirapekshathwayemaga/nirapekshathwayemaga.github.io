@@ -51,11 +51,42 @@
 									<header>
 										<p><a target="_blank"  href="https://support.google.com/calendar/answer/37100?hl=en&ref_topic=10510447">Add calendar to view in your local timezone</a></p>
 									</header>
-									<div class="responsive-iframe-container big-container">
-										<iframe id="calendar-container" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-									</div>
+								<section class="tiles">
+									<article>
+										<span class="image">
+											<img src="images/events.jpg" alt="" />
+										</span>
+										<a target="_blank" id="googleCalendarLinkWithTimeZone">
+											<h2 class="shadow20">වැඩසටහන් දින දර්ශනය Google Calendar</h2>
+										</a>
+									</article>
+									<article>
+										<span class="image">
+											<img src="images/events/2022-05-01-icon.jpeg" alt="" />
+										</span>
+										<a target="_blank" href="images/events/2022-05-01.jpeg">
+										</a>
+									</article>
+									<article>
+										<span class="image">
+											<img src="images/events/2022-06-12-icon.jpeg" alt="" />
+										</span>
+										<a target="_blank" href="images/events/2022-06-12.jpeg">
+										</a>
+									</article>
+									<article>
+										<span class="image">
+											<img src="images/events/2022-06-16-icon.jpeg" alt="" />
+										</span>
+										<a target="_blank" href="images/events/2022-06-16.jpeg">
+										</a>
+									</article>
+								</section>
 								</div>
 							</div>
+<!--  <div id="calendar-wrapper" class="responsive-iframe-container big-container" style="display: none;">
+								<iframe id="calendar-container" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+							</div> -->
 			</div>
 
 		<!-- Scripts -->
@@ -65,6 +96,19 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 				<script type="text/javascript">
+					
+					const calurl = "https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&showTitle=1&showNav=1&showDate=1&showPrint=1&showTabs=1&showCalendars=1&showTz=1&title=%E0%B6%B1%E0%B7%92%E0%B6%BB%E0%B6%B4%E0%B7%9A%E0%B6%9A%E0%B7%8A%E0%B7%82%E0%B6%AD%E0%B7%8A%E0%B7%80%E0%B6%BA%E0%B7%9A%20%E0%B6%B8%E0%B6%9C%E0%B7%80%E0%B7%90%E0%B6%A9%E0%B7%83%E0%B6%A7%E0%B7%84%E0%B6%B1%E0%B7%8A%20%E0%B6%AF%E0%B7%92%E0%B6%B1%20%E0%B6%AF%E0%B6%BB%E0%B7%8A%E0%B7%81%E0%B6%B1%E0%B6%BA%20%3A%20Nirapekshathwaye%20Maga%20Events%20Calendar&src=bmlyYXBla3NoYXRod2F5ZW1hZ2FhcHBAZ21haWwuY29t&color=%23039BE5";
+					var cal = document.getElementById('googleCalendarLinkWithTimeZone');
+					var timezone = "Asia%2FColombo";
+					try {
+						timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+					} catch (error) {
+						console.log("Failed to detect browser timezone"+error);	
+					}
+					cal.href = calurl + `&ctz=${timezone}`;	
+
+					/*
+				function showCalendar(){
 					const calurl = "https://calendar.google.com/calendar/embed?height=600&wkst=2&bgcolor=%23ffffff&showTitle=1&showNav=1&showDate=1&showPrint=1&showTabs=1&showCalendars=1&showTz=1&title=%E0%B6%B1%E0%B7%92%E0%B6%BB%E0%B6%B4%E0%B7%9A%E0%B6%9A%E0%B7%8A%E0%B7%82%E0%B6%AD%E0%B7%8A%E0%B7%80%E0%B6%BA%E0%B7%9A%20%E0%B6%B8%E0%B6%9C%E0%B7%80%E0%B7%90%E0%B6%A9%E0%B7%83%E0%B6%A7%E0%B7%84%E0%B6%B1%E0%B7%8A%20%E0%B6%AF%E0%B7%92%E0%B6%B1%20%E0%B6%AF%E0%B6%BB%E0%B7%8A%E0%B7%81%E0%B6%B1%E0%B6%BA%20%3A%20Nirapekshathwaye%20Maga%20Events%20Calendar&src=bmlyYXBla3NoYXRod2F5ZW1hZ2FhcHBAZ21haWwuY29t&color=%23039BE5";
 					var cal = document.getElementById('calendar-container');
 					var timezone = "Asia%2FColombo";
@@ -74,6 +118,9 @@
 						console.log("Failed to detect browser timezone"+error);	
 					}
 					cal.src = calurl + `&ctz=${timezone}`;	
+					document.getElementById('calendar-wrapper').style.display = "block";
+				}
+				*/
 			</script>
 	</body>
 </html>
