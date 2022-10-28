@@ -7,13 +7,14 @@
 		<meta property="og:description" content="තථාගතයන් වහන්සේගේ එකම ඉගැන්වීම වන, ආස්වාදය ආදීනවය නිස්සරණය තතු සේ දැන, කාම භූමියේ සිට අරිහත් ඵලය දක්වා වැඩිය යුතු එකම මාර්ගය වන ලෝකෝත්තර අරි අටගි මග පිළිබඳව කෙරෙන ගැඹුරු සාකච්ඡාවකි." />
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/sinhalakeyboard.css" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	    <script src="assets/js/search.js"></script>	
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script src="assets/js/search.js"></script>
     	<script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
 	</head>
-	<body class="is-preload">
+	<body class="is-preload" onload="document.getElementById('query').focus();">
 		<!-- Wrapper -->
 			<div id="wrapper">
 				<!-- Header -->
@@ -58,12 +59,24 @@
 								  <p>නමෝ බුද්ධාය! මමද සියලු සත්වයෝම නිවන් දකිත්වා!
 								   Namo Budhdhaya! May All Attain Nibbana!</p> 
 							</header> -->
-							<form>
+							<form onsubmit="return false;">
 								<label id="status"></label>
-								<input type="text" id="query" /> 
-								<input type="submit" id="search" value="සොයන්න Search"></input>
+								<input type="text" id="query" name="query"/> 
+								<input type="button" id="search" value="සොයන්න Search"></input>
+								<input type="button" id="SinhalaKeyboardToggleButton" value="Sinhala Keyboard"></input>
 								<input type="button" id="loadmore" onclick="nextResults(); return false;" value="Next">
 							</form>
+							<div id="SinhalaKeyboardDiv">
+								<p id="action">
+									<button id="selectAll" class="CopyText">Select All</button>
+									<button id="undo">Undo</button> 
+									<button id="redo">Redo</button> 
+									<button onClick="ClearExitorText();">Clear All</button> 
+									<button title="Shrink letters" id="shrink">-</button>
+									<button title="Enlarge letters" id="enlarge">+</button> 
+								</p>
+								<div id="keyboard"></div>
+							</div>
 							<section id="response" class="tiles">
 							</section>
 						</div>
@@ -98,12 +111,12 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/sinhalakeyboard.js"></script>
+			<!-- <script src="assets/js/jquery.min.js"></script> -->
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-			<script async src="https://www.googletagmanager.com/gtag/js?id=G-7GXJXYT3TE"></script>
-
+			<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-7GXJXYT3TE"></script> -->
 	</body>
 </html>

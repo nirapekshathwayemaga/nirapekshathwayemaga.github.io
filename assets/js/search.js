@@ -1,9 +1,8 @@
 // Your use of the YouTube API must comply with the Terms of Service:
 // https://developers.google.com/youtube/terms
-
 var API_KEY='AIzaSyAN2p96WqS6t_94-dLih8KmyoqeykjL0k0'
 var CHANNEL_ID='UCJ9f0cswE2rRuFDplR1ZKsw'
-var maxResults = 24;
+var maxResults = 48;
 var itemCount = 0;
 
 // Helper function to display JavaScript value on HTML page.
@@ -12,7 +11,6 @@ function showResponse(response) {
     // document.getElementById('response').innerHTML = responseString;
 
     $("#response").empty();
-    $("#loadmore").show();
 
     var nextPageToken = document.createElement('input');
     nextPageToken.setAttribute("id", "pageToken");
@@ -40,6 +38,10 @@ function showResponse(response) {
         $("#response").append(template);
     }
     $("#status").text(itemCount +" of "+response.result.pageInfo.totalResults);
+
+    if(response.result.pageInfo.totalResults - itemCount > 0){
+        $("#loadmore").show();
+    }
 }
 
 // Called automatically when JavaScript client library is loaded.
@@ -58,7 +60,7 @@ function search() {
 		gapi.client.setApiKey(API_KEY);		
 	});
 	
-    var request = gapi.client.youtube.search.list({
+   gapi.client.youtube.search.list({
         // "part": "snippet,contentDetails,statistics",
         "part": "snippet",
         "channelId": CHANNEL_ID,
@@ -89,14 +91,18 @@ function search() {
         
   }
 
-$(function(){
+$( document ).ready(function() {
     $("#loadmore").hide();
-	$("#search").on("click", function(){
+	$("#search").click(function(){
         $("#status").val($("<div>Loading...</div>"));
         $("#pageToken").val('');
         itemCount = 0;
 		search();
         return false;
-	}
-	);
-})
+	});
+    $("#SinhalaKeyboardDiv").hide();
+    $("#SinhalaKeyboardToggleButton").click(function(){
+        $("#SinhalaKeyboardDiv").toggle();
+        $("#query").focus();
+    });
+});
