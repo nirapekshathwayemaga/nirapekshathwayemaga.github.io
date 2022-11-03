@@ -9,6 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 	</head>
 	<body class="is-preload">
 		<!-- Wrapper -->
@@ -53,7 +54,7 @@
 							<div id="main">
 								<div class="inner">
 									<header>
-										<p>​පහත සදහන් ගිණුමට ඔබගේ දායකත්වය ලබාදිය හැක.</p>
+										<p>1. ​පහත සදහන් ගිණුමට ඔබගේ දායකත්වය ලබාදිය හැක.</p>
 									</header>
 									<div class="inner">
 										<section>
@@ -84,44 +85,120 @@
 												</table>
 											</div>
 
-											<h3>Required Details</h3>
+											<h3>2. Send Required Details</h3>
 											<p>පුණ්‍යානුමෝදනා සිදුකිරීම පහසු කරගැනීමට පහත සඳහන් තොරතුරු අපවෙත එවීමට කාරුණිකවන්න<br/>
-												EMAIL ADDRESS FOR DONATIONS : treasurer.nirapekshathwayemaga@gmail.com <br/>
-												TELEPHONE NUMBER FOR DONATIONS :  (+94 )77 341 0056</p>
-											<div class="table-wrapper">
+											<div class="table-wrapper" id="form-wrapper">
+												<div id="message"></div>
 												<table class="alt">
 														<tr>
-															<td>1. ආධාර කිරීම සඳහා සහසම්බන්ධ වූ  ජීවත්ව සිටින අයගේ නම් :</td>
+															<td>1. ආධාර කිරීම සඳහා සහසම්බන්ධ වූ  ජීවත්ව සිටින අයගේ නම් : Contributors names
+																<textarea name="contributors" id="contributors" placeholder="Enter here" rows="1" style="overflow: hidden; resize: none; height: 79px;"></textarea>
+															</td>
 														</tr>
 														<tr>
-															<td>2. මියගිය නෑදෑ හිත මිත්‍රආදි අය සිටීනම් ඔවුන්ගේ නම්:</td>
+															<td>2. සෙත් පැතීම් - Blessings
+																<textarea name="blessings" id="blessings" placeholder="Enter here" rows="1" style="overflow: hidden; resize: none; height: 79px;"></textarea>
+															</td>
 														</tr>
 														<tr>
-															<td>3. ආධාර කරන්නේ කුමන පුණ්‍ය කටයුත්ත සඳහාද :</td>
+															<td>3. මියගිය නෑදෑ හිත මිත්‍රආදි අය සිටීනම් ඔවුන්ගේ නම්: Deceased friends & family
+																<textarea name="deceased" id="deceased" placeholder="Enter here" rows="1" style="overflow: hidden; resize: none; height: 79px;"></textarea>
+															</td>
 														</tr>
 														<tr>
-															<td>4. පුණ්‍යානුමෝදනාව එවියයුතු Email ලිපිනය or Whatsapp no :</td>
+															<td>4. ආධාර කරන්නේ කුමන පුණ්‍ය කටයුත්ත සඳහාද : Donation purpose
+																<select name="purpose" id="purpose">
+																	<option value="දාන : Donation">-</option>
+																	<option value="එදිනෙදා දාන : Daily Dana">එදිනෙදා දාන : Daily Dana</option>
+																	<option value="භාවනා වැඩසටහන සඳහා : Meditation Program">භාවනා වැඩසටහන සඳහා : Meditation Program</option>
+																	<option value="ශ්‍රී සද්ධර්ම සාකච්ඡා මාලාව: Dhamma Discussion Program">ශ්‍රී සද්ධර්ම සාකච්ඡා මාලාව: Dhamma Discussion Program</option>
+																</select>
+															</td>
 														</tr>
 														<tr>
-															<td>5. බැරකල මුදල :</td>
+															<td>5. පුණ්‍යානුමෝදනාව එවියයුතු Email ලිපිනය (දැනුම් දීම සදහා - For receiving alerts):
+																<input type="email" name="email" id="email" value="" placeholder="Enter here">
+															</td>
 														</tr>
 														<tr>
-															<td>6. මුදල් බැරකල දිනය :</td>
+															<td>6. දුරකථන අංකය - Tel no:
+																<input type="text" name="telNo" id="telNo" value="" placeholder="Enter here">
+															</td>
 														</tr>
 														<tr>
-															<td>7. මුදල් බැරකල රිසිට් පත්‍රයේහි ඡායාරූපයක් :</td>
+															<td>7. බැරකල මුදල :
+																<input type="email" name="depositAmount" id="depositAmount" value="" placeholder="Enter here">
+															</td>
+														</tr>
+														<tr>
+															<td>8. මුදල් බැරකල දිනය - Deposit Date :
+																<input type="date" name="depositDate" id="depositDate" value="" placeholder="Enter here">
+															</td>
+														</tr>
+														<tr>
+															<td>9. මුදල් බැරකල රිසිට් පත්‍රය - Receipt No:
+																<input type="text" name="receiptNo" id="receiptNo" value="" placeholder="Enter here">
+															</td>
+														</tr>
+														<tr>
+															<td>10. <input type="button" value="Submit" class="primary" onclick="submitDonationForm()">
+															</td>
 														</tr>
 												</table>
 											</div>
 											
 										</section>
+										<!-- <section>
+											<h2>Form</h2>
+											<form onsubmit="return false">
+												<div class="row gtr-uniform">
+													<div class="col-6 col-12-xsmall">
+														<input type="text" name="MobileNo" id="MobileNo" value="" placeholder="දුරකථන අංකය - Tel no">
+													</div>
+													<div class="col-6 col-12-xsmall">
+														<input type="email" name="email" id="email" value="" placeholder=" පුණ්‍යානුමෝදනාව එවියයුතු Email ">
+													</div>
+													<div class="col-12">
+														<select name="purpose" id="purpose">
+															<option value="දාන : Donation">-ආධාර කරන්නේ කුමන පුණ්‍ය කටයුත්ත සඳහාද : Donation purpose-</option>
+															<option value="එදිනෙදා දාන : Daily Dana">එදිනෙදා දාන : Daily Dana</option>
+															<option value="භාවනා වැඩසටහන සඳහා : Meditation Program">භාවනා වැඩසටහන සඳහා : Meditation Program</option>
+															<option value="ශ්‍රී සද්ධර්ම සාකච්ඡා මාලාව: Dhamma Discussion Program">ශ්‍රී සද්ධර්ම සාකච්ඡා මාලාව: Dhamma Discussion Program</option>
+														</select>
+													</div>
+													<div class="col-6 col-12-xsmall">
+														<input type="text" name="receiptNo" id="receiptNo" value="" placeholder="රිසිට්පත් අංකය - Receipt No">
+													</div>
+													<div class="col-6 col-12-xsmall">
+														<input type="email" name="depositAmount" id="depositAmount" value="" placeholder="බැරකල මුදල - Deposit Amount">
+													</div>
+													<div class="col-12">
+														<div class="textarea-wrapper"><textarea name="contributors" id="contributors" placeholder="දායක වු නම් - Contributors" rows="1" style="overflow: hidden; resize: none; height: 79px;"></textarea></div>
+													</div>
+													<div class="col-12">
+														<div class="textarea-wrapper"><textarea name="blessings" id="blessings" placeholder="සෙත් පැතීම් - Blessings" rows="1" style="overflow: hidden; resize: none; height: 79px;"></textarea></div>
+													</div>
+													<div class="col-12">
+														<div class="textarea-wrapper"><textarea name="deceased" id="deceased" placeholder="මියගිය නෑදෑ හිත මිත්‍රආදි - Deceased friends & family" rows="1" style="overflow: hidden; resize: none; height: 79px;"></textarea></div>
+													</div>
+													<div class="col-12">
+														<ul class="actions">
+															<li><input type="submit" value="Submit" class="primary"></li>
+															<li><input type="reset" value="Reset"></li>
+														</ul>
+													</div>
+												</div>
+											</form>
+										</section> -->
 									</div>
 								</div>
 							</div>
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
+			<!-- <script src="assets/js/jquery.min.js"></script> -->
+			<script src="assets/js/sinhalakeyboard.js"></script>
+			<script src="assets/js/donations.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
