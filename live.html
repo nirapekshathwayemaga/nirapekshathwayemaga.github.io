@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+        }
+
+        iframe {
+            width: 80%;
+            height: 80vh;
+            border: none;
+        }
+    </style>
+    <script>
+        let player;
+        const channelId = "UCJ9f0cswE2rRuFDplR1ZKsw";
+        const checkInterval = 10000;
+        var needsReload = true;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player("youtubeFrame", {
+                events: {
+                    "onStateChange": onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            console.log("event.data" + event.data);
+            if (event.data === 1) {
+                console.log("🎥 Live stream has started!");
+                onLiveStreamStart();
+            }
+        }
+
+        function onLiveStreamStart() {
+            needsReload = false;
+            // alert("🔴 The YouTube Live Stream is now LIVE!");
+            // You can add additional actions here (e.g., stop refresh attempts, send a notification, etc.)
+        }
+
+        function reloadIframe() {
+            let iframe = document.getElementById("youtubeFrame");
+            iframe.src = `https://www.youtube.com/embed/live_stream?channel=${channelId}&autoplay=1`;
+            console.log("🔄 Checking live stream status...");
+        }
+
+        function checkLiveStatus() {
+            if (needsReload) {
+                reloadIframe();
+                setTimeout(checkLiveStatus, checkInterval);
+            }
+        }
+
+        window.onload = () => {
+            checkLiveStatus();
+        };
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</head>
+
+<body>
+    <iframe id="youtubeFrame"
+        src="https://www.youtube.com/embed/live_stream?channel=UCJ9f0cswE2rRuFDplR1ZKsw&autoplay=1"
+        allow="autoplay; encrypted-media" allowfullscreen>
+    </iframe>
+
+</body>
+
+</html>
