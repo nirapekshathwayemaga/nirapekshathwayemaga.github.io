@@ -216,7 +216,7 @@
 
   <main>
     <div class="search-box">
-      <input type="text" id="searchBox" placeholder="Search videos...">
+      <input type="text" id="searchBox" placeholder="දහම් දේශනා සොයන්න Search videos..." autofocus>
       <button id="keyboardIcon" title="Toggle Sinhala Keyboard">⌨️</button>
     </div>
 
@@ -387,5 +387,10 @@
     }
   </script>
 
+<script>
+window.onload = function() {
+  document.getElementById("searchBox").focus();
+};
+</script>
 </body>
 </html>
