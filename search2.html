@@ -67,16 +67,16 @@
 
     .search-box {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
       align-items: center;
       margin-bottom: 20px;
       gap: 10px;
-      position: relative;
     }
 
     #searchBox {
-      width: 100%;
-      max-width: 500px;
+      flex: 1;
+      min-width: 240px;
       padding: 12px 20px;
       font-size: 16px;
       border-radius: 30px;
@@ -96,7 +96,7 @@
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 24px;
+      font-size: 28px;
       color: var(--text-color);
       transition: color 0.3s;
     }
@@ -120,14 +120,16 @@
 
     .keyboard-container button {
       margin: 5px;
-      padding: 10px 15px;
-      font-size: 18px;
+      padding: 15px;
+      font-size: 20px;
       background-color: var(--input-bg);
       color: var(--text-color);
       border: 1px solid var(--border-color);
       border-radius: 8px;
       cursor: pointer;
+      min-width: 48px;
       transition: background-color 0.3s, color 0.3s;
+      touch-action: manipulation;
     }
 
     .keyboard-container button:hover {
@@ -201,8 +203,43 @@
     }
 
     @media (max-width: 600px) {
-      .thumbnail-container {
-        padding-top: 56.25%;
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .theme-toggle {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+        top: 15px;
+        right: 15px;
+      }
+
+      #keyboardIcon {
+        font-size: 24px;
+      }
+
+      .keyboard-container button {
+        padding: 12px;
+        font-size: 18px;
+        min-width: 42px;
+      }
+
+      .card-title {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      #searchBox {
+        min-width: 180px;
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+
+      .keyboard-container button {
+        padding: 10px;
+        font-size: 16px;
+        min-width: 38px;
       }
     }
   </style>
@@ -224,7 +261,7 @@
 
     <div id="results" class="results"></div>
 
-    <div id="noResults" class="no-results" style="display: none;">No results found.</div>
+    <div id="noResults" class="no-results" style="display: none;"> පදයට අදාල දේශනා කිසිවක් හමු නොවිනි. මුල් අකුරු කීපයක් පමණක් ඇතුළු කර නැවත උත්සහ කර බලන්න.</div>
   </main>
 
   <script>
