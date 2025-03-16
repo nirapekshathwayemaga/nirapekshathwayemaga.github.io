@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>දහම් දේශනා සොයන්න Search</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #333333;
+      --header-bg: #f9fafb;
+      --card-bg: #ffffff;
+      --input-bg: #ffffff;
+      --border-color: #e5e7eb;
+    }
+
+    body.dark-mode {
+      --bg-color: #1f2937;
+      --text-color: #f9fafb;
+      --header-bg: #111827;
+      --card-bg: #374151;
+      --input-bg: #4b5563;
+      --border-color: #6b7280;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    header {
+      background-color: var(--header-bg);
+      color: var(--text-color);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: var(--input-bg);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .search-box {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    #searchBox {
+      flex: 1;
+      min-width: 240px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 30px;
+      border: 1px solid var(--border-color);
+      background-color: var(--input-bg);
+      color: var(--text-color);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: border-color 0.3s ease, background-color 0.3s, color 0.3s;
+    }
+
+    #searchBox:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
+
+    #keyboardIcon {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 28px;
+      color: var(--text-color);
+      transition: color 0.3s;
+    }
+
+    #keyboardIcon:hover {
+      color: #2563eb;
+    }
+
+    .keyboard-container {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0 auto 30px;
+      max-width: 600px;
+      background-color: var(--card-bg);
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      transition: background-color 0.3s;
+    }
+
+    .keyboard-container button {
+      margin: 5px;
+      padding: 15px;
+      font-size: 20px;
+      background-color: var(--input-bg);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      min-width: 48px;
+      transition: background-color 0.3s, color 0.3s;
+      touch-action: manipulation;
+    }
+
+    .keyboard-container button:hover {
+      background-color: #2563eb;
+      color: #fff;
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s;
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+    }
+
+    .thumbnail-container {
+      width: 100%;
+      position: relative;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      overflow: hidden;
+    }
+
+    .thumbnail-container img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .no-results {
+      text-align: center;
+      color: var(--text-color);
+      font-size: 1.2rem;
+      margin-top: 50px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 14px;
+      color: #aaa;
+      margin: 40px 0 20px;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .theme-toggle {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+        top: 15px;
+        right: 15px;
+      }
+
+      #keyboardIcon {
+        font-size: 24px;
+      }
+
+      .keyboard-container button {
+        padding: 12px;
+        font-size: 18px;
+        min-width: 42px;
+      }
+
+      .card-title {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      #searchBox {
+        min-width: 180px;
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+
+      .keyboard-container button {
+        padding: 10px;
+        font-size: 16px;
+        min-width: 38px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>දහම් දේශනා සොයන්න</h1>
+    <button id="themeToggle" class="theme-toggle">Dark Mode</button>
+  </header>
+
+  <main>
+    <div class="search-box">
+      <input type="text" id="searchBox" placeholder="දහම් දේශනා සොයන්න Search videos..." autofocus>
+      <button id="keyboardIcon" title="Toggle Sinhala Keyboard">⌨️</button>
+    </div>
+
+    <div id="keyboard" class="keyboard-container"></div>
+
+    <div id="results" class="results"></div>
+
+    <div id="noResults" class="no-results" style="display: none;"> පදයට අදාල දේශනා කිසිවක් හමු නොවිනි. මුල් අකුරු කීපයක් පමණක් ඇතුළු කර නැවත උත්සහ කර බලන්න.</div>
+  </main>
+
+  <script>
+    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRuknc7u9-vocbmtD8tmlLeT49USMmCiamDM4ApbCDeDnM9ac84mQ1nCoZ9SZyneTfXFZy5I48UWa7p/pub?gid=1280098297&single=true&output=csv';
+    let videos = [];
+
+    const sinhalaKeys = ['අ', 'ආ', 'ඇ', 'ඈ', 'ඉ', 'ඊ', 'උ', 'ඌ', 'ඍ', 'එ', 'ඒ', 'ඓ',
+                         'ඔ', 'ඕ', 'ඖ', 'ක', 'ඛ', 'ග', 'ඝ', 'ච', 'ඡ', 'ජ', 'ඣ', 'ට', 
+                         'ඨ', 'ඩ', 'ඪ', 'ත', 'ථ', 'ද', 'ධ', 'න', 'ප', 'ඵ', 'බ', 'භ', 
+                         'ම', 'ය', 'ර', 'ල', 'ව', 'ශ', 'ෂ', 'ස', 'හ', 'ළ', 'ෆ', 'ං', 
+                         'ඃ', '෴', 'ා', 'ැ', 'ෑ', 'ි', 'ී', 'ු', 'ූ', 'ෙ', 'ේ', 'ෛ', 
+                         'ො', 'ෝ', 'ෞ', '්'];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchCSV();
+      setupKeyboard();
+
+      const savedSearch = localStorage.getItem('searchTerm');
+      if (savedSearch) {
+        document.getElementById('searchBox').value = savedSearch;
+        searchVideos(savedSearch);
+      }
+
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('themeToggle').textContent = 'Light Mode';
+      }
+
+      document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+      document.getElementById('keyboardIcon').addEventListener('click', toggleKeyboard);
+    });
+
+    async function fetchCSV() {
+      try {
+        const response = await fetch(csvUrl);
+        const data = await response.text();
+        parseCSV(data);
+        const initialSearch = document.getElementById('searchBox').value;
+        if (initialSearch) {
+          searchVideos(initialSearch);
+        }
+      } catch (error) {
+        console.error('Error fetching CSV:', error);
+      }
+    }
+
+    function parseCSV(data) {
+      const lines = data.trim().split('\n');
+      lines.shift(); // Remove header
+      videos = lines.map(line => {
+        const c1 = line.indexOf(',');
+        const c2 = line.indexOf(',', c1 + 1);
+        const c3 = line.indexOf(',', c2 + 1);
+
+        const videoId = line.substring(0, c1).trim();
+        const timestamp = line.substring(c1 + 1, c2).trim();
+        const titleRaw = line.substring(c2 + 1).trim();
+        const displayTitle = c2 !== -1
+          ? line.substring(c2 + 1, c3).trim()
+          : titleRaw;
+
+        return {
+          videoId,
+          timestamp,
+          fullTitle: titleRaw,
+          displayTitle
+        };
+      });
+    }
+
+    function searchVideos(term) {
+      const lowerTerm = term.toLowerCase();
+
+      const filtered = videos.filter(video =>
+        video.fullTitle.toLowerCase().includes(lowerTerm)
+      );
+
+      displayResults(filtered);
+
+      localStorage.setItem('searchTerm', term);
+    }
+
+    function displayResults(results) {
+      const resultsDiv = document.getElementById('results');
+      const noResultsDiv = document.getElementById('noResults');
+
+      resultsDiv.innerHTML = '';
+
+      if (results.length === 0) {
+        noResultsDiv.style.display = 'block';
+        return;
+      }
+
+      noResultsDiv.style.display = 'none';
+
+      results.forEach(video => {
+        const videoLink = document.createElement('a');
+
+        let videoUrl = `https://www.youtube.com/watch?v=${video.videoId}`;
+        if (video.timestamp) {
+          // handle both "166s" or "22" input formats
+          const tValue = video.timestamp.endsWith('s') ? video.timestamp : `${video.timestamp}s`;
+          videoUrl += `&t=${tValue}`;
+        }
+
+        videoLink.href = videoUrl;
+        videoLink.target = '_blank';
+        videoLink.className = 'card';
+
+        const thumbnailContainer = document.createElement('div');
+        thumbnailContainer.className = 'thumbnail-container';
+
+        const thumbnail = document.createElement('img');
+        thumbnail.src = `https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`;
+        thumbnail.alt = video.displayTitle;
+
+        thumbnailContainer.appendChild(thumbnail);
+
+        const cardContent = document.createElement('div');
+        cardContent.className = 'card-content';
+
+        const title = document.createElement('h3');
+        title.className = 'card-title';
+        title.textContent = video.displayTitle;
+
+        cardContent.appendChild(title);
+        videoLink.appendChild(thumbnailContainer);
+        videoLink.appendChild(cardContent);
+
+        resultsDiv.appendChild(videoLink);
+      });
+    }
+
+    document.getElementById('searchBox').addEventListener('input', (e) => {
+      const searchTerm = e.target.value;
+      searchVideos(searchTerm);
+    });
+
+    function toggleTheme() {
+      const body = document.body;
+      const toggleButton = document.getElementById('themeToggle');
+      body.classList.toggle('dark-mode');
+
+      if (body.classList.contains('dark-mode')) {
+        toggleButton.textContent = 'Light Mode';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        toggleButton.textContent = 'Dark Mode';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+
+    function setupKeyboard() {
+      const keyboardContainer = document.getElementById('keyboard');
+      sinhalaKeys.forEach(char => {
+        const btn = document.createElement('button');
+        btn.textContent = char;
+        btn.addEventListener('click', () => {
+          const searchBox = document.getElementById('searchBox');
+          searchBox.value += char;
+          searchVideos(searchBox.value);
+        });
+        keyboardContainer.appendChild(btn);
+      });
+    }
+
+    function toggleKeyboard() {
+      const keyboard = document.getElementById('keyboard');
+      keyboard.style.display = keyboard.style.display === 'flex' ? 'none' : 'flex';
+    }
+  </script>
+
+<script>
+window.onload = function() {
+  document.getElementById("searchBox").focus();
+};
+</script>
+</body>
+</html>
