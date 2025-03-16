@@ -320,9 +320,7 @@
         const videoId = line.substring(0, c1).trim();
         const timestamp = line.substring(c1 + 1, c2).trim();
         const titleRaw = line.substring(c2 + 1).trim();
-        const displayTitle = c2 !== -1
-          ? line.substring(c2 + 1, c3).trim()
-          : titleRaw;
+        const displayTitle = titleRaw.replace(/^,+|,+$/g, '');
 
         return {
           videoId,
