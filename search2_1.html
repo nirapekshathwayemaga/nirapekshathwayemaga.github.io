@@ -45,20 +45,6 @@
       font-size: 1.8rem;
     }
 
-    .theme-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background-color: var(--input-bg);
-      color: var(--text-color);
-      border: 1px solid var(--border-color);
-      padding: 8px 12px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: background-color 0.3s, color 0.3s;
-    }
-
     main {
       max-width: 1000px;
       margin: 30px auto;
@@ -207,13 +193,6 @@
         font-size: 1.5rem;
       }
 
-      .theme-toggle {
-        padding: 6px 10px;
-        font-size: 0.8rem;
-        top: 15px;
-        right: 15px;
-      }
-
       #keyboardIcon {
         font-size: 24px;
       }
@@ -254,13 +233,13 @@
       margin-bottom: 5px;
       font-weight: bold;
     }
+
   </style>
 </head>
 <body>
 
   <header>
     <h1>දහම් දේශනා සොයන්න</h1>
-    <button id="themeToggle" class="theme-toggle">🌗</button>
   </header>
 
   <main>
@@ -271,6 +250,8 @@
     <div class="search-box">
       <input type="text" id="searchBox" placeholder="දහම් දේශනා සොයන්න Search videos..." autofocus>
       <button id="keyboardIcon" title="Toggle Sinhala Keyboard">⌨️</button>
+      <button class="icon-button" id="themeToggle">🌗</button>
+      <button class="icon-button" id="shareButton" style="display:none;">🔗</button>
     </div>
 
     <div id="keyboard" class="keyboard-container"></div>
@@ -291,6 +272,10 @@
                          'ඃ', '෴', 'ා', 'ැ', 'ෑ', 'ි', 'ී', 'ු', 'ූ', 'ෙ', 'ේ', 'ෛ', 
                          'ො', 'ෝ', 'ෞ', '්'];
 
+    const searchBoxInput = document.getElementById('searchBox');
+    const shareButtonInput = document.getElementById('shareButton');
+    const shareLinkInput = document.getElementById('shareLink');
+
     document.addEventListener('DOMContentLoaded', () => {
       fetchCSV();
       setupKeyboard();
@@ -298,12 +283,12 @@
       const urlParams = new URLSearchParams(window.location.search);
       const searchTermFromURL = urlParams.get('q');
       if (searchTermFromURL) {
-        document.getElementById('searchBox').value = decodeURIComponent(searchTermFromURL);
+        searchBoxInput.value = decodeURIComponent(searchTermFromURL);
         searchVideos(searchTermFromURL);
       }else{
         const savedSearch = localStorage.getItem('searchTerm');
         if (savedSearch) {
-          document.getElementById('searchBox').value = savedSearch;
+          searchBoxInput.value = savedSearch;
           searchVideos(savedSearch);
         }
       }
@@ -320,7 +305,7 @@
         const response = await fetch(csvUrl);
         const data = await response.text();
         parseCSV(data);
-        const initialSearch = document.getElementById('searchBox').value;
+        const initialSearch = searchBoxInput.value;
         if (initialSearch) {
           searchVideos(initialSearch);
         }
@@ -359,12 +344,8 @@
       );
 
       displayResults(filtered);
-
-      if(term){
-        localStorage.setItem('searchTerm', term);
-        const url = window.location.origin + window.location.pathname + "?q=" + encodeURIComponent(term);
-        showShareLink(url);
-      }
+      localStorage.setItem('searchTerm', term);
+      shareButtonInput.style.display = 'block';
     }
 
     function displayResults(results) {
@@ -418,7 +399,7 @@
       });
     }
 
-    document.getElementById('searchBox').addEventListener('input', (e) => {
+    searchBoxInput.addEventListener('input', (e) => {
       const searchTerm = e.target.value;
       searchVideos(searchTerm);
     });
@@ -441,9 +422,8 @@
         const btn = document.createElement('button');
         btn.textContent = char;
         btn.addEventListener('click', () => {
-          const searchBox = document.getElementById('searchBox');
-          searchBox.value += char;
-          searchVideos(searchBox.value);
+          searchBoxInput.value += char;
+          searchVideos(searchBoxInput.value);
         });
         keyboardContainer.appendChild(btn);
       });
@@ -453,8 +433,26 @@
       const keyboard = document.getElementById('keyboard');
       keyboard.style.display = keyboard.style.display === 'flex' ? 'none' : 'flex';
     }
-
-    const shareLinkInput = document.getElementById('shareLink');
+    
+    shareButtonInput.addEventListener('click', () => {
+      const searchTerm = searchBoxInput.value.trim();
+      if (searchTerm) {
+        const url = window.location.origin + window.location.pathname + "?q=" + encodeURIComponent(searchTerm);
+        // Check if the browser allows clipboard write (for copy to clipboard)
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(url).then(() => {
+            alert("Link copied to clipboard!");
+          }).catch(err => {
+            console.error("Clipboard access denied", err);
+            showShareLink(url);
+          });
+        } else {
+          // If clipboard access is denied, show the URL
+          showShareLink(url);
+        }
+      }
+    });
+    
     shareLinkInput.addEventListener('click', () => {
       shareLinkInput.select();
       shareLinkInput.setSelectionRange(0, 99999); // For mobile devices
