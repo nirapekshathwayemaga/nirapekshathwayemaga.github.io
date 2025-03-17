@@ -248,10 +248,15 @@
 
   <header>
     <h1>දහම් දේශනා සොයන්න</h1>
-    <button id="themeToggle" class="theme-toggle">Dark Mode</button>
+    <button id="themeToggle" class="theme-toggle">🌗</button>
+    <button class="icon-button" id="shareButton">🔗</button>
   </header>
 
   <main>
+    <div id="shareLinkContainer" style="display:none;">
+      <p>Share 🔗:</p>
+      <input type="text" id="shareLink" readonly />
+    </div>
     <div class="search-box">
       <input type="text" id="searchBox" placeholder="දහම් දේශනා සොයන්න Search videos..." autofocus>
       <button id="keyboardIcon" title="Toggle Sinhala Keyboard">⌨️</button>
@@ -279,18 +284,22 @@
       fetchCSV();
       setupKeyboard();
 
-      const savedSearch = localStorage.getItem('searchTerm');
-      if (savedSearch) {
-        document.getElementById('searchBox').value = savedSearch;
-        searchVideos(savedSearch);
+      const urlParams = new URLSearchParams(window.location.search);
+      const searchTermFromURL = urlParams.get('q');
+      if (searchTermFromURL) {
+        document.getElementById('searchBox').value = decodeURIComponent(searchTermFromURL);
+        searchVideos(searchTermFromURL);
+      }else{
+        const savedSearch = localStorage.getItem('searchTerm');
+        if (savedSearch) {
+          document.getElementById('searchBox').value = savedSearch;
+          searchVideos(savedSearch);
+        }
       }
-
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
-        document.getElementById('themeToggle').textContent = 'Light Mode';
       }
-
       document.getElementById('themeToggle').addEventListener('click', toggleTheme);
       document.getElementById('keyboardIcon').addEventListener('click', toggleKeyboard);
     });
@@ -405,10 +414,8 @@
       body.classList.toggle('dark-mode');
 
       if (body.classList.contains('dark-mode')) {
-        toggleButton.textContent = 'Light Mode';
         localStorage.setItem('theme', 'dark');
       } else {
-        toggleButton.textContent = 'Dark Mode';
         localStorage.setItem('theme', 'light');
       }
     }
@@ -430,6 +437,28 @@
     function toggleKeyboard() {
       const keyboard = document.getElementById('keyboard');
       keyboard.style.display = keyboard.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    document.getElementById('shareButton').addEventListener('click', () => {
+      const searchTerm = searchBox.value.trim();
+      if (searchTerm) {
+        const url = window.location.origin + window.location.pathname + "?q=" + encodeURIComponent(searchTerm);
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(url).then(() => {
+            alert("Link copied to clipboard!");
+          }).catch(err => {
+            console.error("Clipboard access denied", err);
+            showShareLink(url);
+          });
+        } else {
+          showShareLink(url);
+        }
+      }
+    });
+
+    function showShareLink(url) {
+      shareLinkContainer.style.display = 'block';
+      document.getElementById('shareLink').value = url;
     }
   </script>
 
