@@ -234,6 +234,20 @@
       font-weight: bold;
     }
 
+    .suggestions {
+      border: 1px solid #ccc;
+      width: 300px;
+      background-color: #fff;
+      position: absolute;
+      z-index: 1000;
+    }
+    .suggestion-item {
+      padding: 10px;
+      cursor: pointer;
+    }
+    .suggestion-item:hover, .highlighted {
+      background-color: #f0f0f0;
+    }
   </style>
 </head>
 <body>
@@ -250,10 +264,10 @@
     <div class="search-box">
       <input type="text" id="searchBox" placeholder="දහම් දේශනා සොයන්න Search videos..." autofocus>
       <button class="icon-button" id="keyboardIcon" title="Toggle Sinhala Keyboard">⌨️</button>
-      <button class="icon-button" id="themeToggle">🌗</button>
-      <button class="icon-button" id="shareButton" style="display:none;">🔗</button>
+      <button class="icon-button" id="themeToggle">&#127769;</button>
+      <button class="icon-button" id="shareButton" style="display:none;">&#128279;</button>
     </div>
-
+    <div id="suggestions" class="suggestions" style="display: none;"></div>
     <div id="keyboard" class="keyboard-container"></div>
 
     <div id="results" class="results"></div>
@@ -275,6 +289,17 @@
     const searchBoxInput = document.getElementById('searchBox');
     const shareButtonInput = document.getElementById('shareButton');
     const shareLinkInput = document.getElementById('shareLink');
+
+
+    function safeSetLocalStorage(key, value) {
+      try {
+        localStorage.setItem(key, value);
+        return true; // Success
+      } catch (e) {
+        console.warn('localStorage error:', e);
+        return false; // Failed
+      }
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
       fetchCSV();
@@ -344,7 +369,7 @@
       );
 
       displayResults(filtered);
-      localStorage.setItem('searchTerm', term);
+      safeSetLocalStorage('searchTerm', term);
       shareButtonInput.style.display = 'block';
     }
 
@@ -400,6 +425,11 @@
     }
 
     searchBoxInput.addEventListener('input', (e) => {
+      try {
+        showSinglishSuggestions()
+      } catch (error) {
+        console.log(error);
+      }
       const searchTerm = e.target.value;
       searchVideos(searchTerm);
     });
@@ -410,9 +440,9 @@
       body.classList.toggle('dark-mode');
 
       if (body.classList.contains('dark-mode')) {
-        localStorage.setItem('theme', 'dark');
+        safeSetLocalStorage('theme', 'dark');
       } else {
-        localStorage.setItem('theme', 'light');
+        safeSetLocalStorage('theme', 'light');
       }
     }
 
@@ -464,8 +494,148 @@
       shareLinkContainer.style.display = 'block';
       shareLinkInput.value = url;
     }
-  </script>
 
+  const suggestionsBox = document.getElementById('suggestions');
+  let highlightedIndex = -1;  // Tracks the currently highlighted suggestion
+
+async function showSinglishSuggestions() {
+    const text = searchBoxInput.value.trim();
+
+    // Split the text into words and check if the last word is in English
+    const words = text.split(/\s+/);  // Split by whitespace
+    const lastWord = words[words.length - 1];
+
+    // Check if the last word contains only English letters
+    const isLastWordEnglish = /^[A-Za-z]+$/.test(lastWord);
+
+    if (!isLastWordEnglish || lastWord === '') {
+      suggestionsBox.style.display = 'none';
+      return;
+    }
+
+    try {
+      const suggestions = await transliterateWithGoogle(lastWord);
+
+      // Clear previous suggestions
+      suggestionsBox.innerHTML = '';
+
+      if (suggestions.length > 0) {
+        suggestionsBox.style.display = 'block';
+
+        suggestions.forEach((suggestion, index) => {
+          const div = document.createElement('div');
+          div.className = 'suggestion-item';
+          div.textContent = suggestion;
+
+          div.addEventListener('click', () => {
+            replaceLastWordWithSuggestion(suggestion);
+          });
+
+          div.addEventListener('mouseover', () => {
+            highlightSuggestion(index);
+          });
+
+          suggestionsBox.appendChild(div);
+        });
+      } else {
+        suggestionsBox.style.display = 'none';
+      }
+
+    } catch (error) {
+      console.error('Error fetching transliterations:', error);
+      suggestionsBox.style.display = 'none';
+    }
+  }
+  // Function to replace the last word with the selected suggestion
+  function replaceLastWordWithSuggestion(suggestion) {
+    const text = searchBoxInput.value.trim();
+    const words = text.split(/\s+/);
+    words[words.length - 1] = suggestion; // Replace last word with suggestion
+
+    // Join the words back into a string
+    const updatedText = words.join(' ');
+
+    // Update the input box value
+    searchBoxInput.value = updatedText;
+
+    // Set the cursor focus at the end of the input text
+    searchBoxInput.setSelectionRange(updatedText.length, updatedText.length);
+
+    // Hide suggestions box after selection
+    suggestionsBox.style.display = 'none';
+  }
+
+  // Function to highlight a suggestion based on the index
+  function highlightSuggestion(index) {
+    const suggestions = document.querySelectorAll('.suggestion-item');
+    suggestions.forEach((item, idx) => {
+      item.classList.remove('highlighted');
+      if (idx === index) {
+        item.classList.add('highlighted');
+      }
+    });
+  }
+
+  // Function to handle keyboard events for selection
+  searchBoxInput.addEventListener('keydown', (e) => {
+    const suggestions = document.querySelectorAll('.suggestion-item');
+    const totalSuggestions = suggestions.length;
+
+    // Arrow Down (Move down through suggestions)
+    if (e.key === 'ArrowDown') {
+      highlightedIndex = Math.min(highlightedIndex + 1, totalSuggestions - 1);
+      highlightSuggestion(highlightedIndex);
+      e.preventDefault(); // Prevent cursor from moving in input
+    }
+
+    // Arrow Up (Move up through suggestions)
+    if (e.key === 'ArrowUp') {
+      highlightedIndex = Math.max(highlightedIndex - 1, 0);
+      highlightSuggestion(highlightedIndex);
+      e.preventDefault(); // Prevent cursor from moving in input
+    }
+
+    // Enter (Select the highlighted suggestion)
+    if (e.key === 'Enter' && highlightedIndex !== -1) {
+      const selectedSuggestion = suggestions[highlightedIndex].textContent;
+      replaceLastWordWithSuggestion(selectedSuggestion);
+      e.preventDefault(); // Prevent form submission (if inside a form)
+    }
+  });
+
+  async function transliterateWithGoogle(text, lang = 'si') {
+    try {
+      const url = `https://inputtools.google.com/request?text=${encodeURIComponent(text)}&itc=${lang}-t-i0-und&num=5&cp=0&cs=1&ie=utf-8&oe=utf-8`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      if (result[0] === "SUCCESS") {
+        const suggestions = result[1][0][1];
+        return suggestions;
+      } else {
+        throw new Error("Failed to transliterate: " + JSON.stringify(result));
+      }
+
+    } catch (error) {
+      console.error("Error in transliterateWithGoogle:", error);
+      throw error;
+    }
+  }
+
+  // Hide suggestions if clicking outside
+  document.addEventListener('click', (e) => {
+    if (!suggestionsBox.contains(e.target) && e.target !== searchBoxInput) {
+      suggestionsBox.style.display = 'none';
+    }
+  });
+
+  </script>
 <script>
 window.onload = function() {
   document.getElementById("searchBox").focus();
