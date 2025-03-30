@@ -1,119 +1,646 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Nirapekshathwaye Maga | &#3505;&#3538;&#3515;&#3508;&#3546;&#3482;&#3530;&#3522;&#3501;&#3530;&#3520;&#3514;&#3546; &#3512;&#3484; | Bana, Lord Buddha, Dharma Deshana, Dharma Discussion, Sowan, Abhaya Thero, Niwan, Nibbana, Meditation, Bhawana, Dhyana, Bu - Nirapekshathwaye Maga | &#3505;&#3538;&#3515;&#3508;&#3546;&#3482;&#3530;&#3522;&#3501;&#3530;&#3520;&#3514;&#3546; &#3512;&#3484;</title>
-		<meta property="og:site_name" content="Nirapekshathwaye Maga | &#3505;&#3538;&#3515;&#3508;&#3546;&#3482;&#3530;&#3522;&#3501;&#3530;&#3520;&#3514;&#3546; &#3512;&#3484; | Bana, Lord Buddha, Dharma Deshana, Dharma Discussion, Sowan, Abhaya Thero, Niwan, Nibbana, Meditation, Bhawana, Dhyana, Bu" />
-		<meta property="og:title" content="Nirapekshathwaye Maga | &#3505;&#3538;&#3515;&#3508;&#3546;&#3482;&#3530;&#3522;&#3501;&#3530;&#3520;&#3514;&#3546; &#3512;&#3484;" />
-		<meta property="og:description" content="තථාගතයන් වහන්සේගේ එකම ඉගැන්වීම වන, ආස්වාදය ආදීනවය නිස්සරණය තතු සේ දැන, කාම භූමියේ සිට අරිහත් ඵලය දක්වා වැඩිය යුතු එකම මාර්ගය වන ලෝකෝත්තර අරි අටගි මග පිළිබඳව කෙරෙන ගැඹුරු සාකච්ඡාවකි." />
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/sinhalakeyboard.css" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-		<script src="assets/js/search.js"></script>
-    	<script src="https://apis.google.com/js/client.js?onload=onClientLoad" type="text/javascript"></script>
-	</head>
-	<body class="is-preload" onload="document.getElementById('query').focus();">
-		<!-- Wrapper -->
-			<div id="wrapper">
-				<!-- Header -->
-					<header id="header">
-						<div class="inner">
-							<!-- Logo -->
-							<a href="index.html" class="logo">
-								<span class="symbol"><img src="images/logo.jpeg" alt=""></span><span class="title">සාපෙක්ෂත්වයෙන් මිදී නිරපේක්ෂතාවය කරා... <br/>Liberation From Relativity To Absoluteness</span>
-							</a>
-							<!-- Nav -->
-								<nav>
-									<ul>
-										<li><a href="#menu">Menu</a></li>
-									</ul>
-								</nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>දහම් දේශනා සොයන්න Search</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #333333;
+      --header-bg: #f9fafb;
+      --card-bg: #ffffff;
+      --input-bg: #ffffff;
+      --border-color: #e5e7eb;
+    }
 
-						</div>
-					</header>
+    body.dark-mode {
+      --bg-color: #1f2937;
+      --text-color: #f9fafb;
+      --header-bg: #111827;
+      --card-bg: #374151;
+      --input-bg: #4b5563;
+      --border-color: #6b7280;
+    }
 
-				<!-- Menu -->
-					<nav id="menu">
-						<h2>Menu</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="start.html">ඇරඹුම Start</a></li>
-							<li><a href="connect.html">සම්බන්ද වෙන්න Connect</a></li>
-							<li><a href="events.html">වැඩසටහන් දින දර්ශනය Events Calendar</a></li>
-							<li><a href="truth.html">පෙර නොඇසූ විරු දහම Universal Truths Unheard of</a></li>
-							<li><a href="qna.html">දහම් ගැටලුවක් Q&A</a></li>
-							<li><a href="donations.html">පුණ්‍යානුමෝදනාව Donations</a></li>
-						</ul>
-					</nav>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-				<!-- Main -->
-					<div id="main">
-						<div class="inner">
-							<form onsubmit="return false;">
-								<label id="status"></label>
-								<input type="text" id="query" name="query"/> 
-								<input type="button" id="search" value="සොයන්න Search"></input>
-								<input type="button" id="SinhalaKeyboardToggleButton" value="Sinhala Keyboard"></input>
-								<input type="button" id="loadmore" onclick="nextResults(); return false;" value="Next">
-							</form>
-							<div id="SinhalaKeyboardDiv">
-								<p id="action">
-									<button id="selectAll" class="CopyText">Select All</button>
-									<button id="undo">Undo</button> 
-									<button id="redo">Redo</button> 
-									<button onClick="ClearExitorText();">Clear All</button> 
-									<button title="Shrink letters" id="shrink">-</button>
-									<button title="Enlarge letters" id="enlarge">+</button> 
-								</p>
-								<div id="keyboard"></div>
-							</div>
-							<section id="response" class="tiles">
-								<div id="includedContent"></div>
-							</section>
-						</div>
-					</div>
-				<!-- Footer -->
-					<footer id="footer">
-						<div class="inner">
-							<section>
-								<h2>Get in touch</h2>
-								<a href="https://twitter.com/messages/compose?recipient_id=1533493500305719296" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a>
-								<p> <a href="#" class="icon solid style2 fa-envelope"></a>​EMAIL ADDRESS  :   ariyaguru2@gmail.com <br/> ​EMAIL ADDRESS FOR DONATIONS : treasurer.nirapekshathwayemaga@gmail.com
-								<br/><a href="https://g.page/nirapekshathwayemaga?share">ADDRESS : Nirapekshathwaye Maga, No: 48/C, Kindelpitiya, Millewa, Sri Lanka</a>
-								<br/><a class="icon solid style2 fa-phone"></a>(+94)71 042 6654,  (+94)71 810 3920,  (+94)77 737 3920,  (+94)77 341 0056 <br/> TELEPHONE NUMBER FOR DONATIONS :  (+94 )77 341 0056</p>
-							</section>
-							<section>
-								<h2>Follow</h2>
-								<ul class="icons">
-									<li><a href="https://twitter.com/messages/compose?recipient_id=1533493500305719296" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="https://www.youtube.com/nirapekshathwayemaga" class="icon brands style2 fa-youtube"><span class="label">Youtube</span></a></li>
-									<li><a href="https://github.com/nirapekshathwayemaga" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
-									<li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
-									<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
-									<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
-								</ul>
-							</section>
-						</div>
-					</footer>
+    header {
+      background-color: var(--header-bg);
+      color: var(--text-color);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
 
-			</div>
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
 
-		<!-- Scripts -->
-			<script src="assets/js/sinhalakeyboard.js"></script>
-			<!-- <script src="assets/js/jquery.min.js"></script> -->
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-7GXJXYT3TE"></script> -->
-			<script> 
-				jQuery(function(){
-					jQuery("#includedContent").load("Season8VideoIndex.html"); 
-				});
-			</script> 
-	</body>
+    main {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .search-box {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    #searchBox {
+      flex: 1;
+      min-width: 240px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 30px;
+      border: 1px solid var(--border-color);
+      background-color: var(--input-bg);
+      color: var(--text-color);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: border-color 0.3s ease, background-color 0.3s, color 0.3s;
+    }
+
+    #searchBox:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
+
+    #keyboardIcon {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 28px;
+      color: var(--text-color);
+      transition: color 0.3s;
+    }
+
+    #keyboardIcon:hover {
+      color: #2563eb;
+    }
+
+    .keyboard-container {
+      display: none;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0 auto 30px;
+      max-width: 600px;
+      background-color: var(--card-bg);
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      transition: background-color 0.3s;
+    }
+
+    .keyboard-container button {
+      margin: 5px;
+      padding: 15px;
+      font-size: 20px;
+      background-color: var(--input-bg);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      min-width: 48px;
+      transition: background-color 0.3s, color 0.3s;
+      touch-action: manipulation;
+    }
+
+    .keyboard-container button:hover {
+      background-color: #2563eb;
+      color: #fff;
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s;
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+    }
+
+    .thumbnail-container {
+      width: 100%;
+      position: relative;
+      padding-top: 56.25%; /* 16:9 Aspect Ratio */
+      overflow: hidden;
+    }
+
+    .thumbnail-container img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .no-results {
+      text-align: center;
+      color: var(--text-color);
+      font-size: 1.2rem;
+      margin-top: 50px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 14px;
+      color: #aaa;
+      margin: 40px 0 20px;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      #keyboardIcon {
+        font-size: 24px;
+      }
+
+      .keyboard-container button {
+        padding: 12px;
+        font-size: 18px;
+        min-width: 42px;
+      }
+
+      .card-title {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      #searchBox {
+        min-width: 180px;
+        padding: 10px 15px;
+        font-size: 14px;
+      }
+
+      .keyboard-container button {
+        padding: 10px;
+        font-size: 16px;
+        min-width: 38px;
+      }
+    }
+
+        /* Share Link Container */
+        #shareLinkContainer {
+      display: none;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    #shareLinkContainer p {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .suggestions {
+      border: 1px solid #ccc;
+      width: 300px;
+      background-color: #fff;
+      position: absolute;
+      z-index: 1000;
+    }
+    .suggestion-item {
+      padding: 10px;
+      cursor: pointer;
+    }
+    .suggestion-item:hover, .highlighted {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>දහම් දේශනා සොයන්න</h1>
+  </header>
+
+  <main>
+    <div id="shareLinkContainer" style="display:none;">
+      <p>සෙවීම බෙදාගන්න 🔗 Share:</p>
+      <input type="text" id="shareLink" readonly />
+    </div>
+    <div class="search-box">
+      <input type="text" id="searchBox" placeholder="දහම් දේශනා සොයන්න Search videos..." autofocus>
+      <button class="icon-button" id="keyboardIcon" title="Toggle Sinhala Keyboard">⌨️</button>
+      <button class="icon-button" id="themeToggle">&#127769;</button>
+      <button class="icon-button" id="shareButton" style="display:none;">&#128279;</button>
+    </div>
+    <div id="suggestions" class="suggestions" style="display: none;"></div>
+    <div id="keyboard" class="keyboard-container"></div>
+
+    <div id="results" class="results"></div>
+
+    <div id="noResults" class="no-results" style="display: none;"> පදයට අදාල දේශනා කිසිවක් හමු නොවිනි. මුල් අකුරු කීපයක් පමණක් ඇතුළු කර නැවත උත්සහ කර බලන්න.</div>
+  </main>
+
+  <script>
+    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRuknc7u9-vocbmtD8tmlLeT49USMmCiamDM4ApbCDeDnM9ac84mQ1nCoZ9SZyneTfXFZy5I48UWa7p/pub?gid=1280098297&single=true&output=csv';
+    let videos = [];
+
+    const sinhalaKeys = ['අ', 'ආ', 'ඇ', 'ඈ', 'ඉ', 'ඊ', 'උ', 'ඌ', 'ඍ', 'එ', 'ඒ', 'ඓ',
+                         'ඔ', 'ඕ', 'ඖ', 'ක', 'ඛ', 'ග', 'ඝ', 'ච', 'ඡ', 'ජ', 'ඣ', 'ට', 
+                         'ඨ', 'ඩ', 'ඪ', 'ත', 'ථ', 'ද', 'ධ', 'න', 'ප', 'ඵ', 'බ', 'භ', 
+                         'ම', 'ය', 'ර', 'ල', 'ව', 'ශ', 'ෂ', 'ස', 'හ', 'ළ', 'ෆ', 'ං', 
+                         'ඃ', '෴', 'ා', 'ැ', 'ෑ', 'ි', 'ී', 'ු', 'ූ', 'ෙ', 'ේ', 'ෛ', 
+                         'ො', 'ෝ', 'ෞ', '්'];
+
+    const searchBoxInput = document.getElementById('searchBox');
+    const shareButtonInput = document.getElementById('shareButton');
+    const shareLinkInput = document.getElementById('shareLink');
+
+
+    function safeSetLocalStorage(key, value) {
+      try {
+        localStorage.setItem(key, value);
+        return true; // Success
+      } catch (e) {
+        console.warn('localStorage error:', e);
+        return false; // Failed
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchCSV();
+      setupKeyboard();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const searchTermFromURL = urlParams.get('q');
+      if (searchTermFromURL) {
+        searchBoxInput.value = decodeURIComponent(searchTermFromURL);
+        searchVideos(searchTermFromURL);
+      }else{
+        const savedSearch = localStorage.getItem('searchTerm');
+        if (savedSearch) {
+          searchBoxInput.value = savedSearch;
+          searchVideos(savedSearch);
+        }
+      }
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+      }
+      document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+      document.getElementById('keyboardIcon').addEventListener('click', toggleKeyboard);
+    });
+
+    async function fetchCSV() {
+      try {
+        const response = await fetch(csvUrl);
+        const data = await response.text();
+        parseCSV(data);
+        const initialSearch = searchBoxInput.value;
+        if (initialSearch) {
+          searchVideos(initialSearch);
+        }
+      } catch (error) {
+        console.error('Error fetching CSV:', error);
+      }
+    }
+
+    function parseCSV(data) {
+      const lines = data.trim().split('\n');
+      lines.shift(); // Remove header
+      videos = lines.map(line => {
+        const c1 = line.indexOf(',');
+        const c2 = line.indexOf(',', c1 + 1);
+        const c3 = line.indexOf(',', c2 + 1);
+
+        const videoId = line.substring(0, c1).trim();
+        const timestamp = line.substring(c1 + 1, c2).trim();
+        const titleRaw = line.substring(c2 + 1).trim();
+        const displayTitle = titleRaw.replace(/^,+|,+$/g, '');
+
+        return {
+          videoId,
+          timestamp,
+          fullTitle: titleRaw,
+          displayTitle
+        };
+      });
+    }
+
+    function searchVideos(term) {
+      const lowerTerm = term.toLowerCase();
+
+      const filtered = videos.filter(video =>
+        video.fullTitle.toLowerCase().includes(lowerTerm)
+      );
+
+      displayResults(filtered);
+      safeSetLocalStorage('searchTerm', term);
+      shareButtonInput.style.display = 'block';
+    }
+
+    function displayResults(results) {
+      const resultsDiv = document.getElementById('results');
+      const noResultsDiv = document.getElementById('noResults');
+
+      resultsDiv.innerHTML = '';
+
+      if (results.length === 0) {
+        noResultsDiv.style.display = 'block';
+        return;
+      }
+
+      noResultsDiv.style.display = 'none';
+
+      results.forEach(video => {
+        const videoLink = document.createElement('a');
+
+        let videoUrl = `https://www.youtube.com/watch?v=${video.videoId}`;
+        if (video.timestamp) {
+          // handle both "166s" or "22" input formats
+          const tValue = video.timestamp.endsWith('s') ? video.timestamp : `${video.timestamp}s`;
+          videoUrl += `&t=${tValue}`;
+        }
+
+        videoLink.href = videoUrl;
+        videoLink.target = '_blank';
+        videoLink.className = 'card';
+
+        const thumbnailContainer = document.createElement('div');
+        thumbnailContainer.className = 'thumbnail-container';
+
+        const thumbnail = document.createElement('img');
+        thumbnail.src = `https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg`;
+        thumbnail.alt = video.displayTitle;
+
+        thumbnailContainer.appendChild(thumbnail);
+
+        const cardContent = document.createElement('div');
+        cardContent.className = 'card-content';
+
+        const title = document.createElement('h3');
+        title.className = 'card-title';
+        title.textContent = video.displayTitle;
+
+        cardContent.appendChild(title);
+        videoLink.appendChild(thumbnailContainer);
+        videoLink.appendChild(cardContent);
+
+        resultsDiv.appendChild(videoLink);
+      });
+    }
+
+    searchBoxInput.addEventListener('input', (e) => {
+      try {
+        showSinglishSuggestions()
+      } catch (error) {
+        console.log(error);
+      }
+      const searchTerm = e.target.value;
+      searchVideos(searchTerm);
+    });
+
+    function toggleTheme() {
+      const body = document.body;
+      const toggleButton = document.getElementById('themeToggle');
+      body.classList.toggle('dark-mode');
+
+      if (body.classList.contains('dark-mode')) {
+        safeSetLocalStorage('theme', 'dark');
+      } else {
+        safeSetLocalStorage('theme', 'light');
+      }
+    }
+
+    function setupKeyboard() {
+      const keyboardContainer = document.getElementById('keyboard');
+      sinhalaKeys.forEach(char => {
+        const btn = document.createElement('button');
+        btn.textContent = char;
+        btn.addEventListener('click', () => {
+          searchBoxInput.value += char;
+          searchVideos(searchBoxInput.value);
+        });
+        keyboardContainer.appendChild(btn);
+      });
+    }
+
+    function toggleKeyboard() {
+      const keyboard = document.getElementById('keyboard');
+      keyboard.style.display = keyboard.style.display === 'flex' ? 'none' : 'flex';
+    }
+    
+    shareButtonInput.addEventListener('click', () => {
+      const searchTerm = searchBoxInput.value.trim();
+      if (searchTerm) {
+        const url = window.location.origin + window.location.pathname + "?q=" + encodeURIComponent(searchTerm);
+        // Check if the browser allows clipboard write (for copy to clipboard)
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(url).then(() => {
+            alert("Link copied to clipboard!");
+          }).catch(err => {
+            console.error("Clipboard access denied", err);
+            showShareLink(url);
+          });
+        } else {
+          // If clipboard access is denied, show the URL
+          showShareLink(url);
+        }
+      }
+    });
+    
+    shareLinkInput.addEventListener('click', () => {
+      shareLinkInput.select();
+      shareLinkInput.setSelectionRange(0, 99999); // For mobile devices
+      document.execCommand('copy');
+      alert("Link copied to clipboard!");
+    });
+
+    function showShareLink(url) {
+      shareLinkContainer.style.display = 'block';
+      shareLinkInput.value = url;
+    }
+
+  const suggestionsBox = document.getElementById('suggestions');
+  let highlightedIndex = -1;  // Tracks the currently highlighted suggestion
+
+async function showSinglishSuggestions() {
+    const text = searchBoxInput.value.trim();
+
+    // Split the text into words and check if the last word is in English
+    const words = text.split(/\s+/);  // Split by whitespace
+    const lastWord = words[words.length - 1];
+
+    // Check if the last word contains only English letters
+    const isLastWordEnglish = /^[A-Za-z]+$/.test(lastWord);
+
+    if (!isLastWordEnglish || lastWord === '') {
+      suggestionsBox.style.display = 'none';
+      return;
+    }
+
+    try {
+      const suggestions = await transliterateWithGoogle(lastWord);
+
+      // Clear previous suggestions
+      suggestionsBox.innerHTML = '';
+
+      if (suggestions.length > 0) {
+        suggestionsBox.style.display = 'block';
+
+        suggestions.forEach((suggestion, index) => {
+          const div = document.createElement('div');
+          div.className = 'suggestion-item';
+          div.textContent = suggestion;
+
+          div.addEventListener('click', () => {
+            replaceLastWordWithSuggestion(suggestion);
+          });
+
+          div.addEventListener('mouseover', () => {
+            highlightSuggestion(index);
+          });
+
+          suggestionsBox.appendChild(div);
+        });
+      } else {
+        suggestionsBox.style.display = 'none';
+      }
+
+    } catch (error) {
+      console.error('Error fetching transliterations:', error);
+      suggestionsBox.style.display = 'none';
+    }
+  }
+  // Function to replace the last word with the selected suggestion
+  function replaceLastWordWithSuggestion(suggestion) {
+    const text = searchBoxInput.value.trim();
+    const words = text.split(/\s+/);
+    words[words.length - 1] = suggestion; // Replace last word with suggestion
+
+    // Join the words back into a string
+    const updatedText = words.join(' ');
+
+    // Update the input box value
+    searchBoxInput.value = updatedText;
+
+    // Set the cursor focus at the end of the input text
+    searchBoxInput.setSelectionRange(updatedText.length, updatedText.length);
+
+    // Hide suggestions box after selection
+    suggestionsBox.style.display = 'none';
+    searchVideos(searchBoxInput.value.trim());
+  }
+
+  // Function to highlight a suggestion based on the index
+  function highlightSuggestion(index) {
+    const suggestions = document.querySelectorAll('.suggestion-item');
+    suggestions.forEach((item, idx) => {
+      item.classList.remove('highlighted');
+      if (idx === index) {
+        item.classList.add('highlighted');
+      }
+    });
+  }
+
+  // Function to handle keyboard events for selection
+  searchBoxInput.addEventListener('keydown', (e) => {
+    const suggestions = document.querySelectorAll('.suggestion-item');
+    const totalSuggestions = suggestions.length;
+
+    // Arrow Down (Move down through suggestions)
+    if (e.key === 'ArrowDown') {
+      highlightedIndex = Math.min(highlightedIndex + 1, totalSuggestions - 1);
+      highlightSuggestion(highlightedIndex);
+      e.preventDefault(); // Prevent cursor from moving in input
+    }
+
+    // Arrow Up (Move up through suggestions)
+    if (e.key === 'ArrowUp') {
+      highlightedIndex = Math.max(highlightedIndex - 1, 0);
+      highlightSuggestion(highlightedIndex);
+      e.preventDefault(); // Prevent cursor from moving in input
+    }
+
+    // Enter (Select the highlighted suggestion)
+    if (e.key === 'Enter' && highlightedIndex !== -1) {
+      const selectedSuggestion = suggestions[highlightedIndex].textContent;
+      replaceLastWordWithSuggestion(selectedSuggestion);
+      e.preventDefault(); // Prevent form submission (if inside a form)
+    }
+  });
+
+  async function transliterateWithGoogle(text, lang = 'si') {
+    try {
+      const url = `https://inputtools.google.com/request?text=${encodeURIComponent(text)}&itc=${lang}-t-i0-und&num=5&cp=0&cs=1&ie=utf-8&oe=utf-8`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      if (result[0] === "SUCCESS") {
+        const suggestions = result[1][0][1];
+        return suggestions;
+      } else {
+        throw new Error("Failed to transliterate: " + JSON.stringify(result));
+      }
+
+    } catch (error) {
+      console.error("Error in transliterateWithGoogle:", error);
+      throw error;
+    }
+  }
+
+  // Hide suggestions if clicking outside
+  document.addEventListener('click', (e) => {
+    if (!suggestionsBox.contains(e.target) && e.target !== searchBoxInput) {
+      suggestionsBox.style.display = 'none';
+    }
+  });
+
+  </script>
+<script>
+window.onload = function() {
+  document.getElementById("searchBox").focus();
+};
+</script>
+</body>
 </html>
