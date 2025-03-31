@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -272,7 +272,7 @@
 
     <div id="results" class="results"></div>
 
-    <div id="noResults" class="no-results" style="display: none;"> පදයට අදාල දේශනා කිසිවක් හමු නොවිනි. මුල් අකුරු කීපයක් පමණක් ඇතුළු කර නැවත උත්සහ කර බලන්න.<div id="lastIndexed"></div></div>
+    <div id="noResults" class="no-results" style="display: none;"> පදයට අදාල දේශනා කිසිවක් හමු නොවිනි. මුල් අකුරු කීපයක් පමණක් ඇතුළු කර නැවත උත්සහ කර බලන්න.</div>
   </main>
 
   <script>
@@ -636,29 +636,10 @@ async function showSinglishSuggestions() {
     }
   });
 
-  const lastIndexed = document.getElementById('lastIndexed');
-
-    async function fetchLastUpdated() {
-      try {
-        const response = await fetch(csvUrl, { method: 'HEAD' });
-        const lastModified = response.headers.get('Last-Modified');
-        if (lastModified) {
-          const date = new Date(lastModified);
-          lastIndexed.innerText = `&#128197; \n${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
-        } else {
-          console.log('Database update info unavailable');
-        }
-      } catch (error) {
-        console.error(error);
-        console.log('Failed to fetch update info');
-      }
-    }
-
   </script>
 <script>
 window.onload = function() {
   document.getElementById("searchBox").focus();
-  fetchLastUpdated();
 };
 </script>
 </body>
